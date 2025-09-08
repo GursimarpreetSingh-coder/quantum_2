@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Frontend</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        button { padding: 10px 20px; margin: 5px; }
+        pre { background: #f5f5f5; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Frontend API Test</h1>
+    
+    <div class="test-section">
+        <h3>1. Health Check</h3>
+        <button onclick="testHealth()">Test Health</button>
+        <div id="health-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>2. Sample Data</h3>
+        <button onclick="testSample()">Load Sample Data</button>
+        <div id="sample-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>3. Optimization Test</h3>
+        <button onclick="testOptimize()">Test Optimization</button>
+        <div id="optimize-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>4. Full Demo</h3>
+        <button onclick="runFullDemo()">Run Full Demo</button>
+        <div id="demo-result"></div>
+    </div>
+
+    <script>
+        async function testHealth() {
+            const resultDiv = document.getElementById('health-result');
+            resultDiv.innerHTML = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                resultDiv.innerHTML = `<div class="success">✅ Health check passed!</div><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Health check failed: ${error.message}</div>`;
+            }
+        }
+        
+        async function testSample() {
+            const resultDiv = document.getElementById('sample-result');
+            resultDiv.innerHTML = 'Loading...';
+            
+            try {
+                const response = await fetch('/api/sample');
+                const data = await response.json();
+                resultDiv.innerHTML = `<div class="success">✅ Sample data loaded!</div><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Sample data failed: ${error.message}</div>`;
+            }
+        }
+        
+        async function testOptimize() {
+            const resultDiv = document.getElementById('optimize-result');
+            resultDiv.innerHTML = 'Optimizing...';
+            
+            try {
+                const testData = {
+                    coordinates: [[28.6139, 77.2090], [28.6239, 77.2190], [28.6089, 77.2240]],
+                    scenario: 'normal'
+                };
+                
+                const response = await fetch('/api/optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `<div class="success">✅ Optimization successful!</div><pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Optimization failed: ${error.message}</div>`;
+            }
+        }
+        
+        async function runFullDemo() {
+            const resultDiv = document.getElementById('demo-result');
+            resultDiv.innerHTML = 'Running full demo...';
+            
+            const scenarios = ['normal', 'peak', 'incident', 'storm'];
+            let results = [];
+            
+            for (const scenario of scenarios) {
+                try {
+                    const testData = {
+                        coordinates: [[28.6139, 77.2090], [28.6239, 77.2190], [28.6089, 77.2240], [28.6219, 77.2010]],
+                        scenario: scenario
+                    };
+                    
+                    const response = await fetch('/api/optimize', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(testData)
+                    });
+                    
+                    const data = await response.json();
+                    results.push({
+                        scenario: scenario,
+                        success: true,
+                        improvement: data.improvement.improvement_percent,
+                        time_saved: data.improvement.time_saved_minutes
+                    });
+                } catch (error) {
+                    results.push({
+                        scenario: scenario,
+                        success: false,
+                        error: error.message
+                    });
+                }
+            }
+            
+            let html = '<div class="success">✅ Full demo completed!</div>';
+            results.forEach(result => {
+                if (result.success) {
+                    html += `<div>📊 ${result.scenario.toUpperCase()}: ${result.improvement}% improvement, ${result.time_saved.toFixed(2)} min saved</div>`;
+                } else {
+                    html += `<div class="error">❌ ${result.scenario.toUpperCase()}: ${result.error}</div>`;
+                }
+            });
+            
+            resultDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

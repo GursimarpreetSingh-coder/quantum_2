@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 Quantum-Enhanced AI Logistics Engine</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌍 Quantum-Enhanced AI Logistics Engine</h1>
+            <p>AI + Quantum Route Optimization for Last-Mile Logistics</p>
+            <div class="theme-toggle">
+                <input type="checkbox" id="themeToggle" />
+                <label for="themeToggle">🌙 Dark Mode</label>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div id="loadingOverlay" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <div class="loading-text">Optimizing route...</div>
+            </div>
+            <div class="control-panel">
+                <div class="scenario-selector">
+                    <label for="scenario">Traffic Scenario:</label>
+                    <select id="scenario">
+                        <option value="normal">Normal Day</option>
+                        <option value="peak">Peak Traffic</option>
+                        <option value="incident">Traffic Incident</option>
+                        <option value="storm">Storm Conditions</option>
+                    </select>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="loadSample" class="btn btn-secondary">Load Sample Data</button>
+                    <button id="clearMap" class="btn btn-warning">Clear Map</button>
+                    <button id="optimizeRoute" class="btn btn-primary">Optimize Route</button>
+                </div>
+
+                <div class="status-indicator">
+                    <div id="status" class="status">Ready</div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="legend">
+                    <div><span class="legend-line baseline"></span> Baseline</div>
+                    <div><span class="legend-line optimized"></span> Optimized</div>
+                </div>
+            </div>
+
+            <div class="results-panel">
+                <h3>📊 Optimization Results</h3>
+                <div id="results" class="results-content">
+                    <p>Click "Optimize Route" to see results</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="metrics-panel">
+            <div class="metric-card">
+                <h4>⏱️ Time Improvement</h4>
+                <div id="timeImprovement" class="metric-value">--</div>
+            </div>
+            <div class="metric-card">
+                <h4>🌱 CO₂ Savings</h4>
+                <div id="co2Savings" class="metric-value">--</div>
+            </div>
+            <div class="metric-card">
+                <h4>⛽ Fuel Savings</h4>
+                <div id="fuelSavings" class="metric-value">--</div>
+            </div>
+            <div class="metric-card">
+                <h4>✅ On-Time Rate</h4>
+                <div id="onTimeRate" class="metric-value">--</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <div id="toasts" class="toasts"></div>
+    <script src="app.js"></script>
+</body>
+</html>
