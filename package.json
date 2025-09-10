@@ -1,17 +1,4 @@
 {
-  "name": "quantum-logistics",
-  "private": true,
-  "version": "1.0.0",
-  "scripts": {
-    "start": "node server/server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.19.2"
-  }
-}
-
-{
   "name": "quantum-logistics-optimizer",
   "version": "1.0.0",
   "description": "AI + Quantum Route Optimization for Last-Mile Logistics",
@@ -28,6 +15,9 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": ["quantum", "ai", "logistics", "optimization", "routing"],
   "author": "D3CODE Hackathon Team",
